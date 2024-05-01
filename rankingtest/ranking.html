@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Phim cũ</title>
+    <link rel="stylesheet" href="ranking.css" />
+
+</head>
+<body>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <h3 style="position: fixed">
+        Top 10 chương trình truyền hình tại Việt Nam hôm nay
+    </h3>
+    <br /><br /><br /><br /><br />
+    <div class="overflow-container">
+        <div class="number-row">
+            <div class="number-cell">
+                <span>1</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img1.png" alt="" />
+                </div>
+            </div>
+
+            <div class="number-cell">
+                <span>2</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img2.png" alt="" />
+                </div>
+                
+            </div>
+            <div class="number-cell">
+                <span>3</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img3.png" alt="" />
+                </div>
+                
+            </div>
+
+            <div class="number-cell">
+                <span>4</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img4.png" alt="" />
+                </div>
+                
+            </div>
+            <div class="number-cell">
+                <span>5</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img5.png" alt="" />
+                </div>
+                
+            </div>
+
+            <div class="number-cell">
+                <span>6</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img6.png" alt="" />
+                </div>
+                
+            </div>
+            <div class="number-cell">
+                <span>7</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img7.png" alt="" />
+                </div>
+                
+            </div>
+
+            <div class="number-cell">
+                <span>8</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img8.png" alt="" />
+                </div>
+                
+            </div>
+            <div class="number-cell">
+                <span>9</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img9.png" alt="" />
+                </div>
+                
+            </div>
+
+            <div class="number-cell">
+                <span>10</span>
+                <div class="empty-cell" style="position: relative;">
+                    <img src="datasources/imageranking/img10.png" alt="" />
+                </div>
+                
+            </div>
+
+            <!-- Repeat this structure for the rest of the images -->
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const numberRow = document.querySelector(".number-row");
+            const scrollRightButton = document.querySelector(".scroll-right");
+            const numberCellWidth = document.querySelector(".number-cell").offsetWidth;
+            const arrowKeys = [37, 38, 39, 40];
+            const emptycell = document.querySelectorAll(".empty-cell");
+            const popup = document.querySelectorAll(".pop-up");
+            const scrollright = document.getElementById('scroll-right');
+
+            emptycell.forEach(function (cell, index) {
+                cell.addEventListener("mouseover", function () {
+                    popup[index].style.display = "block";
+                });
+
+                cell.addEventListener("mouseout", function () {
+                    popup[index].style.display = "none";
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            scrollright.style.top = `${50 + scrolled}px`; // Thay đổi vị trí dọc của nút khi trang được cuộn
+            });
+
+            scrollRightButton.addEventListener("click", function () {
+                const currentLeft = parseFloat(getComputedStyle(numberRow).left);
+                const newLeft = currentLeft - numberCellWidth * 5;
+                numberRow.style.left = newLeft + "px";
+                if (newLeft <= -numberCellWidth * 10) {
+                    numberRow.style.left = "0";
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (arrowKeys.includes(event.keyCode)) {
+                    event.preventDefault();
+                    if (event.keyCode === 37) {
+                        currentPosition--;
+                    } else if (event.keyCode === 39) {
+                        currentPosition++;
+                    }
+                    updatePosition();
+                }
+            });
+        });
+    </script>
+
+    <div>
+        <button class="scroll-right">
+        </button>
+    </div>
+</body>
+
+</html>
