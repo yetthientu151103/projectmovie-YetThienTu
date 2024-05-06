@@ -29,6 +29,25 @@
                     <span>Sắp xếp theo</span>
                     <select class="language3" name="language3" id="language3" onchange="displayValue()">
                         <option value="0" selected>Đề xuất dành cho bạn</option>
+                        <script>
+                            // Trigger 'change' event when the webpage is loaded
+                            $(document).ready(function(){
+                                $.ajax({
+                                    url: '{{ route("getOptions") }}', // Call the new API
+                                    type: 'get',
+                                    success: function(response){
+                                        // Add options to the select element
+                                        var select = $('#language3');
+                                        response.forEach(function(item){
+                                            select.append('<option value="' + item.id + '">' + item.name + '</option>');
+                                        });
+                        
+                                        // Trigger 'change' event
+                                        select.change();
+                                    }
+                                });
+                            });
+                        </script>
                     </select>
                 </div>
             </div>
@@ -37,25 +56,6 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        // Trigger 'change' event when the webpage is loaded
-        $(document).ready(function(){
-            $.ajax({
-                url: '{{ route("getOptions") }}', // Call the new API
-                type: 'get',
-                success: function(response){
-                    // Add options to the select element
-                    var select = $('#language3');
-                    response.forEach(function(item){
-                        select.append('<option value="' + item.id + '">' + item.name + '</option>');
-                    });
-    
-                    // Trigger 'change' event
-                    select.change();
-                }
-            });
-        });
-    </script>
     <script>
         function displayValue() {
             var value = document.getElementById("language3").value;

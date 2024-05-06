@@ -24,3 +24,4 @@ Route::get('/ranking', function () {
 });
 Route::get('/get-options', 'MovieController@getOptions')->name('getOptions');
 Route::get('/get-value', 'MovieController@getValue')->name('getValue');
+Route::get('/get-rank', 'MovieController@getRank')->name('getRank');

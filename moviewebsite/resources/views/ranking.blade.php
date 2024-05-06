@@ -14,33 +14,14 @@
     <div class="overflow-container">
         <h3 style="color: white; margin-left: 20px; margin-top: 20px">Top 10 phim hot trong ngày</h3>
         <div class="number-row">
-            @php
-                $upvoteMinusOne = DB::table('movie')->update(['point' => DB::raw('upvote - 1')]);
-                $updateRank = DB::table('movie')
-                    ->join(DB::raw('(SELECT m.id, COUNT(DISTINCT CASE WHEN s.point > m.point THEN s.point ELSE NULL END) + 1 AS new_rank
-                                    FROM movie AS m
-                                    LEFT JOIN movie AS s ON m.point < s.point
-                                    GROUP BY m.id) AS subquery'), 'movie.id', '=', 'subquery.id')
-                    ->update(['movie.rank' => DB::raw('subquery.new_rank')]);
-
-                for ($i = 1; $i <= 10; $i++) {
-                    $links = DB::table('movie_link')
-                        ->join('movie', 'movie_link.id', '=', 'movie.link_id')
-                        ->where('movie.rank', $i)
-                        ->pluck('rank_link');
-
-                    echo '<div class="number-cell">';
-                    echo '<span>' . $i . '</span>';
-                    echo '<div class="empty-cell" style="position:relative;">';
-
-                    foreach ($links as $link) {
-                        echo '<img src="' . $link . '" alt=" ">'; 
-                    }
-
-                    echo '</div>';
-                    echo '</div>';
-                }
-            @endphp
+            @foreach($movies as $movie)
+                <div class="number-cell">
+                <span><p>Rank: {{ $movie->rank }}</p></span>
+                <div class="empty-cell" style="position:relative;">
+                <img src="{{ $movie->poster_link }}" alt="{{ $movie->title }}">
+                </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
